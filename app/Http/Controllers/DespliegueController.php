@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Despliegue;
 use App\Models\Ambiente;
 use App\Models\Desarrollador;
@@ -11,6 +12,7 @@ use App\Models\Layer;
 use App\Models\Proyecto;
 use App\Models\Rama;
 use App\Models\Servidor;
+use App\Events\UserEvent;
 use Alert;
 
 
@@ -18,6 +20,7 @@ use Alert;
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\DespStoreRequest;
+use App\Notifications\UserNotification;
 use App\Http\Requests\DespEditarRequest;
 
 
@@ -115,9 +118,21 @@ class DespliegueController extends Controller
     $d->FK_PRO = $request->input('p');
     $d->FK_RAMA = $request->input('r');
     $d->FK_SERV = $request->input('s');
-    $d->save();
-    Alert::success('Felicidades!', 'Despliegue registrado Correctamente.');
+    $d->id_usua = $request->user()->id;
 
+   
+
+   $d->save();
+   
+    Alert::success('Proceso realizado!', 'Despliegue registrado Correctamente.');
+    
+   /* User::all()
+   ->except($d->id_usua)
+   ->each(function(User $user)use ($d){
+      $user->notify(new UserNotification($d));
+   });
+*/
+   event(new UserEvent($d));
     return redirect('despliegues');
    }
    public function edit($id){
@@ -175,17 +190,20 @@ class DespliegueController extends Controller
       $despliegues->FK_RAMA = $request->input('r');
       $despliegues->FK_SERV = $request->input('s');
       $despliegues->save();
-      Alert::success('Felicidades!', 'Despliegue actualizado Correctamente.');
+      Alert::success('Proceso realizado!', 'Despliegue actualizado Correctamente.');
       return redirect('despliegues');
    }
 
    public function destroy($id){
       $despliegues = Despliegue::find($id);
       $despliegues->delete();
-      Alert::error('Felicidades!', 'Despliegue eliminado Correctamente.');
+      Alert::error('Proceso realizado!', 'Despliegue eliminado Correctamente.');
       return redirect('despliegues');
   }
-  
+  public function nd(){
+     $dn = auth()->user()->unreadnotifications;
+     return view('despliegue.notification',compact('dn'));
+  }
 
 
 }

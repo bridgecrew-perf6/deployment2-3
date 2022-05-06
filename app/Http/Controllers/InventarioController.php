@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Inventario;
 use App\Models\UsuarioInventario;
+use App\Models\Maquina;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\InventarioRequest;
 use App\Http\Requests\InventarioEditRequest;
@@ -42,7 +43,7 @@ class InventarioController extends Controller
             'cargo.nomb_cargo'
         )
         ->join('cargo','usuario_inventario.FK_CARGO', '=', 'cargo.idCargo')
-        ->get();
+        ->paginate(8);
 
         $al = DB::table('usuario_inventario')
         ->select(DB::raw("COUNT(*) as count_row"))
@@ -99,7 +100,17 @@ class InventarioController extends Controller
         $e->observacion = $request->input('observer');
         $e->FK_U = $i->idUsuario;
         $e->save();
-        Alert::success('Felicidades!', 'Usuario registrado Correctamente.');
+
+        $o = new Maquina();
+        $o->nomb_maq = $request->input('maquina');
+        $o->ram = $request->input('ram');
+        $o->f_mq = $request->input('fech');
+        $o->u_red = $request->input('red');
+        $o->so = $request->input('so');
+        $o->FK_U = $i->idUsuario;
+        $o->save();
+
+        Alert::success('Proceso realizado!', 'Usuario registrado Correctamente.');
 
 
         return redirect('inventarios');
@@ -134,7 +145,23 @@ class InventarioController extends Controller
         ->join('equipo','Inventario.FK_EQUI', '=', 'equipo.idEquipo')
         ->get();
 
-        return view('inventario.show')->with('in',$iv);
+        $ma = DB::table('maquina')->where('idUsuario','=',$id)
+        ->select(
+            'usuario_inventario.nomb_usua',
+            'usuario_inventario.cedula',
+            'usuario_inventario.idUsuario',
+            'maquina.nomb_maq',
+            'maquina.id_maq',
+            'maquina.ram',
+            'maquina.f_mq',
+            'maquina.u_red',
+            'maquina.so',
+
+        )
+        ->join('usuario_inventario','maquina.FK_U', '=', 'usuario_inventario.idUsuario')
+        ->get();
+
+        return view('inventario.show')->with('in',$iv)->with('m',$ma);
     }
 
     /**
@@ -166,7 +193,7 @@ class InventarioController extends Controller
         $inventarios->cedula = $request->input('cedula');
         $inventarios->FK_CARGO = $request->input('cargo');
         $inventarios->save();
-        Alert::success('Felicidades!', 'Usuario Editado Correctamente.');
+        Alert::success('Proceso realizado!', 'Usuario Editado Correctamente.');
 
         return redirect('inventarios');
     }
@@ -262,7 +289,7 @@ class InventarioController extends Controller
     public function eliminar($id){
         $equipos = Inventario::find($id);
         $equipos->delete();
-        Alert::success('Felicidades!', 'Equipo Eliminado Correctamente.');
+        Alert::error('Proceso realizado!', 'Equipo Eliminado Correctamente.');
         return redirect('inventarios');
 
     }
@@ -289,6 +316,72 @@ class InventarioController extends Controller
             break;
         }
         return redirect('inventarios');
+    }
+
+    public function crearmaquina($id){
+
+       
+
+        $u = DB::table('usuario_inventario')->where('idUsuario',"=",$id)
+        ->select('idUsuario','nomb_usua')
+        ->get();
+        
+
+        return view('maquina.create')->with('u',$u);
+    }
+    public function almacenarmaquina(Request $request){
+        $id = session()->get('id');
+        $o = new Maquina();
+        $o->nomb_maq = $request->input('maquina');
+        $o->ram = $request->input('ram');
+        $o->f_mq = $request->input('fech');
+        $o->u_red = $request->input('red');
+        $o->so = $request->input('so');
+        $o->FK_U = $request->input('idfk');
+        $o->save();
+        Alert::success('Felicidades!', 'Maquina Agregada Correctamente.');
+        return redirect('inventarios');
+
+        return view('maquina.create')->with('c',$c)->with('u',$u);
+    }
+    public function editarmaquina($id){
+
+        $maquina = Maquina::find($id);
+
+        $c = DB::table('equipo')
+        ->select('idEquipo','nomb_equipo')
+        ->get();
+
+        $u = DB::table('usuario_inventario')
+        ->select('idUsuario','nomb_usua')
+        ->get();
+
+        $a = DB::table('Inventario')
+        ->select('serial','placa','observacion')
+        ->get();
+
+        return view('maquina.edit')->with('u', $u)->with('maquina',$maquina);
+
+    }
+    public function actualizarmaquina(Request $request, $id){
+        $maquina = Maquina::find($id);
+        $maquina->nomb_maq = $request->input('maquina');
+        $maquina->ram = $request->input('ram');
+        $maquina->f_mq = $request->input('fech');
+        $maquina->u_red = $request->input('red');
+        $maquina->so = $request->input('so');
+        $maquina->save();
+        Alert::success('Felicidades!', 'Maquina Actualizada Correctamente.');
+        return redirect('inventarios');
+
+
+    }
+    public function eliminarmaquina($id){
+        $maquina = Maquina::find($id);
+        $maquina->delete();
+        Alert::error('Proceso realizado!', 'Maquina Eliminada Correctamente.');
+        return redirect('inventarios');
+
     }
 
 

@@ -48,7 +48,7 @@ class CargoController extends Controller
         $ca = new Cargos();
         $ca->nomb_cargo = $request->input('c');
         $ca->save();
-        Alert::success('Felicidades!', 'Cargo creado Correctamente.');
+        Alert::success('Proceso realizado!', 'Cargo creado Correctamente.');
         return redirect('cargos');
 
     }
@@ -88,7 +88,7 @@ class CargoController extends Controller
         $ca = Cargos::find($id);
         $ca->nomb_cargo = $request->input('c');
         $ca->save();
-        Alert::success('Felicidades!', 'Cargos actualizados Correctamente.');
+        Alert::success('Proceso realizado!', 'Cargos actualizados Correctamente.');
         return redirect('cargos');
     }
 
@@ -102,7 +102,7 @@ class CargoController extends Controller
     {
         $ca = Cargos::find($id);
         $ca->delete();
-        Alert::error('Felicidades!', 'Cargo eliminado Correctamente.');
+        Alert::error('Proceso realizado!', 'Cargo eliminado Correctamente.');
         return redirect('cargos');
     }
 }

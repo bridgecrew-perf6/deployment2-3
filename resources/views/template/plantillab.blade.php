@@ -11,6 +11,7 @@
 
     <!-- page css -->
     <link href="{{asset('assets/vendors/datatables/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="assets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
@@ -25,8 +26,8 @@
 </head>
 
 <body>
-    <div class="app is-danger">
-        <div class="layout">
+    <div class='app is-{{auth()->user()->modo}}'>
+        <div class="layout {{auth()->user()->dark}} ">
             <!-- Header START -->
             <div class="header">
                 <div class="logo logo-dark">
@@ -62,65 +63,75 @@
                     <ul class="nav-right">
                         <li class="dropdown dropdown-animated scale-left">
                             <a href="javascript:void(0);" data-toggle="dropdown">
-                                <i class="anticon anticon-bell notification-badge"></i>
+                                <i class="anticon anticon-bell notification-badge">
+                               @if(count(auth()->user()->unreadnotifications))
+                                <span style="font-size:12px">{{count(auth()->user()->unreadnotifications)}}</span>
+                              @endif  
+                                </i>
                             </a>
                             <div class="dropdown-menu pop-notification">
                                 <div class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
                                     <p class="text-dark font-weight-semibold m-b-0">
                                         <i class="anticon anticon-bell"></i>
-                                        <span class="m-l-10">Notification</span>
+                                        <span class="m-l-10">Notificaciones</span>
                                     </p>
-                                    <a class="btn-sm btn-default btn" href="javascript:void(0);">
-                                        <small>View All</small>
+                                    <a class="btn-sm btn-default btn" href="{{route('markAsRead')}}">
+                                        <small>Marcar Como leidas</small>
                                     </a>
                                 </div>
                                 <div class="relative">
                                     <div class="overflow-y-auto relative scrollable" style="max-height: 300px">
+                                     <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom" style="margin-left:85px">
+                                            Notificaciones no leidas
+                                            </a>
+                                            @foreach (auth()->user()->unreadnotifications as $notification)
                                         <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
                                             <div class="d-flex">
+                                           
+                                            
                                                 <div class="avatar avatar-blue avatar-icon">
+                                                  
                                                     <i class="anticon anticon-mail"></i>
                                                 </div>
                                                 <div class="m-l-15">
-                                                    <p class="m-b-0 text-dark">You received a new message</p>
-                                                    <p class="m-b-0"><small>8 min ago</small></p>
+                                                   
+                                                    <p class="m-b-0 text-dark">Despliegue {{$notification->data['id']}} Realizado</p>
+                                                    <p class="m-b-0"><small>{{$notification->created_at->diffForHumans()}}</small></p>
+                                                
                                                 </div>
+                                                 
                                             </div>
+                                            
                                         </a>
+                                        @endforeach
+                                        <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom" style="margin-left:85px">
+                                        Notificaciones leidas
+                                        </a>
+                                       
+                                       @forelse (auth()->user()->readnotifications as $notification)
                                         <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
+                                         
                                             <div class="d-flex">
-                                                <div class="avatar avatar-cyan avatar-icon">
-                                                    <i class="anticon anticon-user-add"></i>
+                                               
+                                               <div class="avatar avatar-blue avatar-icon">
+                                                  
+                                                    <i class="anticon anticon-mail"></i>
                                                 </div>
                                                 <div class="m-l-15">
-                                                    <p class="m-b-0 text-dark">New user registered</p>
-                                                    <p class="m-b-0"><small>7 hours ago</small></p>
+                                                    <p class="m-b-0 text-dark">Despliegue {{$notification->data['id']}} Realizado</p>
+                                                    <p class="m-b-0"><small>{{$notification->created_at->diffForHumans()}}</small></p>
+                                                   
                                                 </div>
+                                                
                                             </div>
+                                            @empty
+                                                   <span>Sin notificaciones leidas</span>  
+                                             @endforelse
+                                            
                                         </a>
-                                        <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
-                                            <div class="d-flex">
-                                                <div class="avatar avatar-red avatar-icon">
-                                                    <i class="anticon anticon-user-add"></i>
-                                                </div>
-                                                <div class="m-l-15">
-                                                    <p class="m-b-0 text-dark">System Alert</p>
-                                                    <p class="m-b-0"><small>8 hours ago</small></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="javascript:void(0);" class="dropdown-item d-block p-15 ">
-                                            <div class="d-flex">
-                                                <div class="avatar avatar-gold avatar-icon">
-                                                    <i class="anticon anticon-user-add"></i>
-                                                </div>
-                                                <div class="m-l-15">
-                                                    <p class="m-b-0 text-dark">You have a new update</p>
-                                                    <p class="m-b-0"><small>2 days ago</small></p>
-                                                </div>
-                                            </div>
-                                        </a>
+                                       
                                     </div>
+                                    
                                 </div>
                             </div>
                         </li>
@@ -143,16 +154,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{url('perfil')}}" class="dropdown-item d-block p-h-15 p-v-10">
+                                <a href="{{url('perfi/'.auth()->user()->id)}}" class="dropdown-item d-block p-h-15 p-v-10">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-user"></i>
-                                            <span class="m-l-10">Editar perfil</span>
+                                            <span class="m-l-10">Ver perfil</span>
                                         </div>
                                         <i class="anticon font-size-10 anticon-right"></i>
                                     </div>
                                 </a>
-                                <a href="" class="dropdown-item d-block p-h-15 p-v-10">
+                                <a href="{{url('perfil/'.auth()->user()->id.'/edit')}}" class="dropdown-item d-block p-h-15 p-v-10">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-lock"></i>
@@ -226,6 +237,9 @@
                                 </li>
                                 <li>
                                     <a href="{{route('ambientes.index')}}">Ambientes</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('capas.index')}}">Capas</a>
                                 </li>
                                 <li>
                                     <a href="{{route('desarrolladores.index')}}">Desarrollador</a>
@@ -432,32 +446,55 @@
                                     <div class="radio">
                                         <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
                                     </div>
+                                    <form method="post" action="{{url('theme/'.auth()->user()->id)}}">
+                                      @csrf
+                                 @method('PUT')
+                                    <div class="form-row">
+
                                     <div class="radio">
-                                        <input id="header-default" name="header-theme" type="radio" value="default">
+                                        <input id="header-default" name="header-theme"  type="radio" value="default">
                                         <label for="header-default"></label>
                                     </div>
                                     <div class="radio">
-                                        <input id="header-success" name="header-theme" type="radio" value="success">
+                                        <input id="header-success" name="header-theme"  type="radio" value="success">
                                         <label for="header-success"></label>
                                     </div>
                                     <div class="radio">
-                                        <input id="header-secondary" name="header-theme" type="radio" value="secondary">
+                                        <input id="header-secondary" name="header-theme"  type="radio" value="secondary">
                                         <label for="header-secondary"></label>
                                     </div>
                                     <div class="radio">
-                                        <input id="header-danger" name="header-theme" type="radio" value="danger">
+                                        <input id="header-danger" name="header-theme"  type="radio" value="danger">
                                         <label for="header-danger"></label>
                                     </div>
+                                                                        </div>
+                                    <br>
+                                    <br>
+                                  <button class="btn btn-info btn-tone m-r-5  btn-xs"  type="submit">Escoger tema</button>
+
                                 </div>
+                                 </form>
+
                             </div>
                             <hr>
                             <div>
+                            <form method="post" action="{{url('dark/'.auth()->user()->id)}}">
+                                      @csrf
+                                 @method('PUT')
                                 <h5 class="m-b-0">Modo oscuro</h5>
                                 <p>Cambiar a modo oscuro</p>
                                 <div class="switch d-inline">
-                                    <input type="checkbox" name="side-nav-theme-toogle" id="side-nav-theme-toogle">
-                                    <label for="side-nav-theme-toogle"></label>
+                                    <input type="radio" name="side-nav-theme-toogle" id="side-nav-theme-toogle" value="is-side-nav-dark"><i class="fas fa-moon"></i> 
+                                    <br>
+                                    
+                                    <input type="radio" name="side-nav-theme-toogle" id="side-nav-theme-toogle" value="is"> <i class="fas fa-sun"></i>
+                                    <br>
+
                                 </div>
+                                <br>
+                                <button class="btn btn-info btn-tone m-r-5  btn-xs"  type="submit">Escoger modo</button>
+
+                                
                             </div>
                             <hr>
                             <div>

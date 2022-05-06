@@ -32,7 +32,7 @@ class DesarrolladorController extends Controller
          $desa = new Desarrollador();
          $desa->nomb_desa = $request->input('nd');
          $desa->save();
-         Alert::success('Felicidades!', 'Desarrollador creado Correctamente.');
+         Alert::success('Proceso realizado!', 'Desarrollador creado Correctamente.');
          return redirect('desarrolladores');
 
     }
@@ -44,7 +44,7 @@ class DesarrolladorController extends Controller
         $desa = Desarrollador::find($id);
         $desa->nomb_desa = $request->input('nd');
         $desa->save();
-        Alert::success('Felicidades!', 'Desarrollador actualizado Correctamente.');
+        Alert::success('Proceso realizado!', 'Desarrollador actualizado Correctamente.');
         return redirect('desarrolladores');
 
     }
@@ -53,7 +53,7 @@ class DesarrolladorController extends Controller
 
         $desarrollador = Desarrollador::find($id);
         $desarrollador->delete();
-        Alert::success('Felicidades!', 'Desarollador eliminado Correctamente.');
+        Alert::error('Proceso realizado!', 'Desarollador eliminado Correctamente.');
         return redirect('desarrolladores');
     }
     

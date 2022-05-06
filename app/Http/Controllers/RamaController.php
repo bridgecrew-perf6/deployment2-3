@@ -34,7 +34,7 @@ public function store(RamaStoreRequest $request){
     $rama = new Rama();
     $rama->nomb_rama = $request->input('r');
     $rama->save();
-    Alert::success('Felicidades!', 'Rama creada Correctamente.');
+    Alert::success('Proceso realizado!', 'Rama creada Correctamente.');
     return redirect('ramas');
 
 }
@@ -48,14 +48,14 @@ public function update(RamaEditarRequest $request , $id){
     $rama = Rama::find($id);
     $rama->nomb_rama = $request->input('r');
     $rama->save();
-    Alert::success('Felicidades!', 'Rama editada Correctamente.');
+    Alert::success('Proceso realizado!', 'Rama editada Correctamente.');
     return redirect('ramas');
 
 }
 public function destroy($id){
     $rama = Rama::find($id);
     $rama->delete();
-    Alert::error('Felicidades!', 'Rama eliminada Correctamente.');
+    Alert::error('Proceso realizado!', 'Rama eliminada Correctamente.');
     return redirect('ramas');
 }
 

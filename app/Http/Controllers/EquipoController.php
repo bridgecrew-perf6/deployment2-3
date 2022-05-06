@@ -50,7 +50,7 @@ class EquipoController extends Controller
         $pc = new Equipos();
         $pc->nomb_equipo = $request->input('pc');
         $pc->save();
-        Alert::success('Felicidades!', 'Equipo creado Correctamente.');
+        Alert::success('Proceso realizado!', 'Equipo creado Correctamente.');
         return redirect('pc');
     }
 
@@ -89,7 +89,7 @@ class EquipoController extends Controller
         $pc = Equipos::find($id);
         $pc->nomb_equipo = $request->input('pc');
         $pc->save();
-        Alert::success('Felicidades!', 'Equipo actualizado Correctamente.');
+        Alert::success('Proceso realizado!', 'Equipo actualizado Correctamente.');
         return redirect('pc');
     }
 
@@ -103,7 +103,7 @@ class EquipoController extends Controller
     {
         $pc = Equipos::find($id);
         $pc->delete();
-        Alert::error('Felicidades!', 'Equipo eliminado Correctamente.');
+        Alert::error('Proceso realizado!', 'Equipo eliminado Correctamente.');
         return redirect('pc');
     }
 }

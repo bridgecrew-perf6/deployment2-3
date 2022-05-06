@@ -34,7 +34,7 @@ class DevopsController extends Controller
         $devo = new Devops();
         $devo->nomb_devo = $request->input('dv'); 
         $devo->save();
-        Alert::success('Felicidades!', 'Devops creado Correctamente.');
+        Alert::success('Proceso realizado!', 'Devops creado Correctamente.');
         return redirect('devops');
 
     }
@@ -46,14 +46,14 @@ class DevopsController extends Controller
         $devo = Devops::find($id);
         $devo->nomb_devo = $request->input('dv');
         $devo->save();
-        Alert::success('Felicidades!', 'Devops actualizado Correctamente.');
+        Alert::success('Proceso realizado!', 'Devops actualizado Correctamente.');
         return redirect('devops');
 
     }
     public function destroy($id){
         $devops = Devops::find($id);
         $devops->delete();
-        Alert::error('Felicidades!', 'Devops eliminado Correctamente.');
+        Alert::error('Proceso realizado!', 'Devops eliminado Correctamente.');
         return redirect('devops');
     }
 

@@ -30,12 +30,12 @@
                                     <thead>
                                         <tr>
                                             <th>Hora y fecha</th>
-                                            <th>Ambiente</th>
+                                            <th>Rama</th>
+                                            <th>Proyecto</th>
+                                            <th>Layer</th>
                                             <th>Desarrollador</th>
                                             <th>Devops</th>
-                                            <th>Layer</th>
-                                            <th>Proyecto</th>
-                                            <th>Rama</th>
+                                            <th>Ambiente</th>
                                             <th>Servidor </th>
                                             <th>ED</th>
 
@@ -61,17 +61,17 @@
                                             <td>{{$desa->fecha}}</td>
                                             
 
-                                            <td>{{$desa->nomb_amb}}</td>
+                                            <td>{{$desa->nomb_rama}}</td>
+
+                                            <td>{{$desa->nomb_proy}}</td>
+
+                                            <td>{{$desa->layer}}</td>
 
                                             <td>{{$desa->nomb_desa}}</td>
 
                                             <td>{{$desa->nomb_devo}}</td>
-
-                                            <td>{{$desa->layer}}</td>
-
-                                            <td>{{$desa->nomb_proy}}</td>
                                             
-                                            <td>{{$desa->nomb_rama}}</td>
+                                            <td>{{$desa->nomb_amb}}</td>
 
                                             <td>{{$desa->numb_serv}}</td>
                                             
@@ -100,13 +100,13 @@
                                     <tfoot>
                                         <tr>
                                             <th>Hora y fecha</th>
-                                            <th>Ambiente</th>
+                                            <th>Rama</th>
+                                            <th>Proyecto</th>
+                                            <th>Layer</th>
                                             <th>Desarrollador</th>
                                             <th>Devops</th>
-                                            <th>Layer</th>
-                                            <th>Proyecto</th>
-                                            <th>Rama</th>
-                                            <th>Servidor</th>
+                                            <th>Ambiente</th>
+                                            <th>Servidor </th>
                                             <th>ED</th>
 
 

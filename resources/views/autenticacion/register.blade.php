@@ -33,8 +33,8 @@
                                 <div class="card-body">
                                     <h2 class="m-t-20">Registro</h2>
                                     <p class="m-b-30">Introduce tus credenciales para acceder</p>
-                                    <form action="{{route('register.store')}}" method="post" enctype="multipart/form-data" id="form">
-                                        @csrf
+                                    <form action="{{route('register.store')}}" method="POSTS" enctype="multipart/form-data" id="form">
+                                       @csrf 
                                         <div class="form-row">
                                             <div class="form-group col-md-6 ">
                                                 <label for="name">Nombre y apellido</label>

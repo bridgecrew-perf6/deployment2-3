@@ -36,7 +36,7 @@ class AmbienteController extends Controller
         $a = new Ambiente();
         $a->nomb_amb = $request->input('ambiente');
         $a->save();
-        Alert::success('Felicidades!', 'Ambiente creada Correctamente.');
+        Alert::success('Proceso realizado!', 'Ambiente creado Correctamente.');
 
         return redirect('ambientes');
     }
@@ -56,7 +56,7 @@ class AmbienteController extends Controller
 
         $amb->save();
 
-        Alert::success('Felicidades!', 'Ambiente actualizado Correctamente.');
+        Alert::success('Proceso realizado!', 'Ambiente actualizado Correctamente.');
 
         return redirect('ambientes');
 
@@ -67,7 +67,7 @@ class AmbienteController extends Controller
         public function destroy(Ambiente $ambiente){
 
             $ambiente->delete();
-            Alert::success('Felicidades!', 'Ambiente eliminado Correctamente.');
+            Alert::error('Proceso realizado!', 'Ambiente eliminado Correctamente.');
             return redirect('ambientes');
         }
 

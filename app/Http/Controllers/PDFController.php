@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Despliegue;
 use App\Models\Fechas;
 use App\Http\Requests\FechStoreRequest;
+use PDF;
 
 
 
@@ -48,7 +49,7 @@ class PDFController extends Controller
         return view('reporte.index')->with('Desa',$Desa);
      }
 
-    public function informe(Request $request){
+    public function informe(FechStoreRequest $request){
        
         $inicio=$request->di;
         $final=$request->df;
@@ -81,7 +82,7 @@ class PDFController extends Controller
 
         $pdf = app('Fpdf');
         $pdf->AddPage('l', 'Legal','mm','300','200');
-        $pdf->Image('../public/assets/images/logo/mchelo.png', 20, 15, 50, 18,'PNG');
+        $pdf->Image('../public/assets/images/logo/mchelo.png', 20, 15, 50, 12,'PNG');
         $pdf->SetFont('Arial','B',9);
         $pdf->setXY(325, 9);
         $pdf->Cell(45,9,date('d/m/Y'),0);
@@ -92,54 +93,56 @@ class PDFController extends Controller
         $pdf->SetFont('Arial','B',15);
         $pdf->setTextColor(73, 73, 73);
         $pdf->setXY(75, 35);
-        $pdf->Cell(205, 10, 'Despliegue', '', 0, 'C');
+        $pdf->Cell(205, 10, 'Listado de despliegues', '', 0, 'C');
 
 
-        $pdf->setXY(5, 48);
+        $pdf->setXY(25, 48);
         $pdf->setFont('Arial', 'B', 9);
         $pdf->setFillColor(178, 178, 178);
-        $pdf->cell(40, 7, 'Hora y fecha', 'TBR', 0, 'C');
+        $pdf->cell(0.1, 7, '', 'TBR', 0, 'C');
+        $pdf->cell(42, 7, 'Hora y fecha', 'TBR', 0, 'C');
 
 
         $pdf->setFont('Arial', 'B', 9);
-        $pdf->cell(45, 7, 'Ambiente', 'TBR', 0, 'C');
+        $pdf->cell(35, 7, 'Rama', 'TBR', 0, 'C');
 
         $pdf->setFont('Arial', 'B', 9);
-        $pdf->cell(35, 7, 'Desarrollador', 'TBR', 0, 'C');
+        $pdf->cell(35, 7, 'Proyecto', 'TBR', 0, 'C');
         
         $pdf->setFont('Arial', 'B', 9);
-        $pdf->cell(35, 7, 'Devops', 'TBR', 0, 'C');
+        $pdf->cell(35, 7, 'Layer', 'TBR', 0, 'C');
 
         $pdf->setFont('Arial', 'B', 9);
-        $pdf->cell(25, 7, 'Layer', 'TBR', 0, 'C');
+        $pdf->cell(40, 7, 'Desarrollador', 'TBR', 0, 'C');
 
         $pdf->setFont('Arial', 'B', 9);
-        $pdf->cell(40.5, 7, 'Proyecto', 'TBR', 0, 'C');
+        $pdf->cell(40.5, 7, 'Devops', 'TBR', 0, 'C');
 
         $pdf->setFont('Arial', 'B', 9);
-        $pdf->cell(40.5, 7, 'Rama', 'TBR', 0, 'C');
+        $pdf->cell(40.5, 7, 'Ambiente', 'TBR', 0, 'C');
 
         $pdf->setFont('Arial', 'B', 9);
-        $pdf->cell(40.5, 7, 'Servidor', 'TBR', 0, 'C');
+        $pdf->cell(42, 7, 'Servidor', 'TBR', 0, 'C');
 
         $pdf->setXY(5, 55);
 
         foreach($Desa as $desa){
-            $pdf->setX(5);
-            $pdf->cell(40,10,$desa->fecha,'TBR','C');
-            $pdf->cell(45,10,$desa->nomb_amb,'TBR','C');
+            $pdf->setX(25);
+            $pdf->cell(0.1, 10, '', 'TBR', 0, 'C');
+            $pdf->cell(42,10,$desa->fecha,'TBR',0,'L');
+            $pdf->cell(35,10,$desa->nomb_rama,'TBR','L');
             $pdf->Cell(0.5,5);
-            $pdf->cell(34.5,10,$desa->nomb_desa,'TBR','C');
+            $pdf->cell(34.5,10,$desa->nomb_proy,'TBR','L');
             $pdf->Cell(0.5,48);
-            $pdf->cell(34.5,10,$desa->nomb_devo,'TBR','L');
+            $pdf->cell(34.5,10,$desa->layer,'TBR','L');
             $pdf->Cell(0.5,48);
-            $pdf->cell(24.5,10,$desa->layer,'TBR','L');
+            $pdf->cell(39.5,10,$desa->nomb_desa,'TBR','L');
             $pdf->Cell(0.5,48);
-            $pdf->cell(40,10,$desa->nomb_proy,'TBR','L');
+            $pdf->cell(40,10,$desa->nomb_devo,'TBR','L');
             $pdf->Cell(0.5,48);
-            $pdf->cell(40,10,$desa->nomb_rama,'TBR',0,'L');
+            $pdf->cell(40,10,$desa->nomb_amb,'TBR',0,'L');
             $pdf->Cell(0.5,48);
-            $pdf->cell(40,10,$desa->numb_serv,'TBR',1,'L');
+            $pdf->cell(41.5,10,$desa->numb_serv,'TBR',1,'L');
 
 
 
@@ -158,5 +161,52 @@ class PDFController extends Controller
 
         return response($pdf->OutPut(), 200)
                 ->header('Content-Type', 'application/pdf');
+    }
+
+    public function acta(Request $request, $id){
+        $usua= DB::table('Inventario')->where('idUsuario','=',$id)
+        ->select(
+            'usuario_inventario.nomb_usua',
+            'usuario_inventario.cedula',
+            'usuario_inventario.idUsuario',
+            'cargo.nomb_cargo',
+            'Inventario.idUsuaActivo',
+            'Inventario.serial',
+            'Inventario.placa',
+            'equipo.nomb_equipo',
+            'Inventario.FK_U',
+            'Inventario.acta'
+
+        )
+        ->join('usuario_inventario','Inventario.FK_U', '=', 'usuario_inventario.idUsuario')
+        ->join('cargo','usuario_inventario.FK_CARGO', '=', 'cargo.idCargo')
+        ->join('equipo','Inventario.FK_EQUI', '=', 'equipo.idEquipo')
+        ->get();
+
+        return $pdf = \PDF::loadView('pdf.acta',compact('usua'))->stream('acta.pdf');
+
+    }
+
+    public function paz(Request $request, $id){
+        $usua = DB::table('Inventario')->where('idUsuario','=',$id)
+        ->select(
+            'usuario_inventario.nomb_usua',
+            'usuario_inventario.cedula',
+            'usuario_inventario.idUsuario',
+            'cargo.nomb_cargo',
+            'Inventario.idUsuaActivo',
+            'Inventario.serial',
+            'Inventario.placa',
+            'equipo.nomb_equipo',
+            'Inventario.FK_U',
+            'Inventario.acta'
+
+        )
+        ->join('usuario_inventario','Inventario.FK_U', '=', 'usuario_inventario.idUsuario')
+        ->join('cargo','usuario_inventario.FK_CARGO', '=', 'cargo.idCargo')
+        ->join('equipo','Inventario.FK_EQUI', '=', 'equipo.idEquipo')
+        ->get();
+        return $pdf = \PDF::loadView('pdf.paz',compact('usua'))->stream('Paz y salvo.pdf');
+
     }
 }

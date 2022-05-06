@@ -17,6 +17,7 @@
                                         <span class="text-gray font-size-13">Inventarios</span>
                                     </div>
                                     <a href="{{url('inventarios/create')}}"><button class="btn btn-info">Nuevo Usuario</button></a>
+                                    
 
                                 </div>                                
                             </div>
@@ -45,7 +46,7 @@
                                     <div class="card">
                                         <div class="card-body">
 
-                                            <div class="m-t-20 text-center">
+                                            <div class="m-t-20 text-center" >
                                                 <div class="avatar avatar-image" style="height: 100px; width: 100px;">
                                                     <img src="assets/images/logo/nube.png" alt="">
                                                 </div>
@@ -57,7 +58,7 @@
 
                                         <div class="text-center m-t-20 form-group" >
                                             <div class="text-center m-t-20 row" style="
-                                                margin-left: 75px;">
+                                                margin-left: 95px;">
 
                                                
 
@@ -86,16 +87,19 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                
 
                             </div>
+                            <div class="d-flex justify-content-center">
+                {!! $iv->links() !!}
+            </div>
 
                             <div class="row d-none" id="list-view">
 
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover">
+                                                    <table  id="data-table" class="table" >
 
                                                         <thead>
                                                             <tr>
@@ -149,20 +153,30 @@
                                                                 </td>
 
                                                             </tr>
+                                                   
                                                             @endforeach
 
                                                         </tbody>
-
+                                                      
                                                     </table>
 
-                                                </div>
+                                                     <div class="d-flex">
+                {!! $iv->links() !!}
+            </div>
+                                                   
+
+                                                
+                                                
                                         </div>
+                                        
                                     </div>
                                 </div>
-
+                                
                             </div>
 
                         </div>
+                        
+
                     </div>
                     
                 </div>

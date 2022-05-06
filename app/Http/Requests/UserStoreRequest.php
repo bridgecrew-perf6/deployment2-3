@@ -25,12 +25,10 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => "required|max:30",
-            'phone' => "required|number",
+            'phone' => "required|numeric|max:10000000000|min:5",
             'email' => "required|email",
-            'password' => "required",
-            'ciudad' => "required|max:20",
+            'city' => "required|max:20",
             'type' => "required",
-            'foto' => "required",
         ];
     }
 
@@ -40,13 +38,14 @@ class UserStoreRequest extends FormRequest
             'name.required' => "El campo no puede estar vacío",
             'name.max' => "No es permitido mas de 30 caracteres",
             'phone.required' => "El campo no puede estar vacío",
-            'phone.number' => "Solo numeros",
+            'phone.numeric' => "Solo numeros",
+            'phone.max' => "Numero invalido!",
+            'phone.min' => "Numero invalido!",
             'email.required' => "El campo no puede estar vacío",
             'email.email' => "Solo correo electronico",
-            'ciudad.required' => "El campo no puede estar vacío",
-            'ciudad.max' => "No es permitido mas de 30 caracteres",
+            'city.required' => "El campo no puede estar vacío",
+            'city.max' => "No es permitido mas de 30 caracteres",
             'type.required' => "El campo no puede estar vacío",
-            'foto.required' => "El campo no puede estar vacío",
 
 
 

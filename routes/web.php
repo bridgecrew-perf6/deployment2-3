@@ -27,8 +27,15 @@ Route::get('/', function () {
 
 //despliegues
 Route::resource('despliegues','App\Http\Controllers\DespliegueController')->middleware('auth','example');
+Route::get('notificacion','App\Http\Controllers\DespliegueController@nd')->middleware('auth','example');
 Route::delete('/despliegues/{despliegue}/delete',[App\Http\Controllers\DespliegueController::class,'destroy'])->name('despliegues.delete')->middleware('auth','example');
-
+Route::get('markAsRead',function(){
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('markAsRead');
+//capas
+Route::resource('capas','App\Http\Controllers\CapaController')->middleware('auth')->middleware('auth','example');
+Route::delete('/capas/{capa}/delete',[App\Http\Controllers\CapaController::class,'destroy'])->name('capas.delete')->middleware('auth')->middleware('auth','example');
 
 
 //ambientes
@@ -65,6 +72,15 @@ Route::resource('home','App\Http\Controllers\HomeController')->middleware('auth'
 Route::get('pdf', 'App\Http\Controllers\PDFController@index')->name('pdf.crear')->middleware('auth','example');
 Route::post('apdf', 'App\Http\Controllers\PDFController@informe')->name('pdf.informe')->middleware('auth','example');
 
+//informe acta pdf
+Route::get('acta/{act}', 'App\Http\Controllers\PDFController@acta')->name('acta.informe')->middleware('auth','example');
+
+//informe paz y salvo pdf
+Route::get('paz/{pa}', 'App\Http\Controllers\PDFController@paz')->name('paz.informe')->middleware('auth','example');
+
+
+
+
 //informe excel
 Route::get('xlsx', 'App\Http\Controllers\ExcelController@index')->name('excel.crear')->middleware('auth','example');
 Route::post('excel', 'App\Http\Controllers\ExcelController@DespExport')->name('excel.informe')->middleware('auth','example');
@@ -76,12 +92,17 @@ Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
 Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout.login');
 
 //Profile
-Route::get('perfil', 'App\Http\Controllers\ProfileController@mostrarperfil')->name('profile.index')->middleware('auth','example');
+Route::get('perfi/{perf}', 'App\Http\Controllers\ProfileController@mostrarperfil')->name('profile.index')->middleware('auth','example');
+Route::get('perfil/{perfi}/edit', 'App\Http\Controllers\ProfileController@editarperfil')->middleware('auth','example');
+Route::put('image/{perfi}', 'App\Http\Controllers\ProfileController@updateimg')->middleware('auth','example');
+Route::put('perfil/{perfi}', 'App\Http\Controllers\ProfileController@updateperfil')->middleware('auth','example');
+Route::put('password/{perfi}', 'App\Http\Controllers\ProfileController@passwordperfil')->middleware('auth','example');
+
 
 //registro de usuarios
 Route::get('register', 'App\Http\Controllers\RegistroController@create')->name('register.index');
 Route::post('register', 'App\Http\Controllers\RegistroController@store')->name('register.store');
-Route::get('/validate-email','App\Http\Controllers\RegistroController@validateuseremail');
+Route::get('validate','App\Http\Controllers\RegistroController@validateuseremail');
 
 //Verificación de email
 Route::get('account/verify/{token}',[App\Http\Controllers\RegistroController::class, 'verifyAccount'])->name('user.verify'); 
@@ -100,6 +121,14 @@ Route::get('observer/{observe}/edit','App\Http\Controllers\InventarioController@
 Route::post('observer/{observe}','App\Http\Controllers\InventarioController@actualizareq')->middleware('auth','example')->name('eq.update');
 Route::delete('/observer/{observe}/delete',[App\Http\Controllers\InventarioController::class,'eliminar'])->name('eq.delete')->middleware('auth','example');
 Route::get('observer/{observe}/enable', 'App\Http\Controllers\InventarioController@enable')->middleware('auth','example');
+//INVENTARIO--MAQUINA
+Route::get('crearma/{crearm}/create','App\Http\Controllers\InventarioController@crearmaquina')->middleware('auth','example')->name('crearma.index');
+Route::post('crearma','App\Http\Controllers\InventarioController@almacenarmaquina')->middleware('auth','example')->name('crearma.store');
+Route::get('crearma/{crearm}/edit','App\Http\Controllers\InventarioController@editarmaquina')->middleware('auth','example')->name('crearma.edit');
+
+Route::post('crearma/{crearm}','App\Http\Controllers\InventarioController@actualizarmaquina')->middleware('auth','example')->name('crearma.update');
+Route::delete('/crearma/{crearm}/delete',[App\Http\Controllers\InventarioController::class,'eliminarmaquina'])->name('crearma.delete')->middleware('auth','example');
+
 
 
 
@@ -111,4 +140,8 @@ Route::delete('/pc/{p}/delete',[App\Http\Controllers\EquipoController::class,'de
 //CARGOS
 Route::resource('cargos','App\Http\Controllers\CargoController')->middleware('auth','example');
 Route::delete('/cargos/{cargo}/delete',[App\Http\Controllers\CargoController::class,'destroy'])->name('cargos.delete')->middleware('auth','example');
+
+//TEMA
+Route::put('theme/{them}', 'App\Http\Controllers\HomeController@editartema')->middleware('auth','example');
+Route::put('dark/{dar}', 'App\Http\Controllers\HomeController@darkmode')->middleware('auth','example');
 

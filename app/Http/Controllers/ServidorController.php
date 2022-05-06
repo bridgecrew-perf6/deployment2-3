@@ -32,7 +32,7 @@ public function store(ServidorStoreRequest $request){
     $serv = new Servidor();
     $serv->numb_serv = $request->input('s');
     $serv->save();
-    Alert::success('Felicidades!', 'Servidor creado Correctamente.');
+    Alert::success('Proceso realizado!', 'Servidor creado Correctamente.');
     return redirect('servidores');
 
 }
@@ -45,14 +45,14 @@ public function update(ServidorEditarRequest $request , $id){
     $serv = Servidor::find($id);
     $serv->numb_serv = $request->input('s');
     $serv->save();
-    Alert::success('Felicidades!', 'Servidor editado Correctamente.');
+    Alert::success('Proceso realizado!', 'Servidor editado Correctamente.');
     return redirect('servidores');
 
 }
 public function destroy($id){
     $serv = Servidor::find($id);
     $serv->delete();
-    Alert::error('Felicidades!', 'Servidor eliminado Correctamente.');
+    Alert::error('Proceso realizado!', 'Servidor eliminado Correctamente.');
     return redirect('servidores');
 }
 }

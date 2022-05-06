@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
-use App\Models\User;
+use App\Models\Despliegue;
 use Illuminate\Auth\Events\Registered;
-
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserVerify;
-
+use App\Models\User;
+use Alert;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -31,6 +31,7 @@ class RegistroController extends Controller
         $user = User::create($request->all());
         $token = Str::random(64);
 
+        
         UserVerify::create([
             'user_id' => $user->id,
             'token' => $token
@@ -49,7 +50,7 @@ class RegistroController extends Controller
         }
 
         $user->save();
-        return redirect()->to('login');
+        return redirect('login')->with('mensaje', 'Usuario registrado correctamente');
     }
     public function validateuseremail(Request $request)
    {

@@ -26,7 +26,10 @@ class User extends Authenticatable
         'city',
         'type',
         'image',
-        'is_email_verified'
+        'is_email_verified',
+        'modo',
+        'dark',
+        'last_seen'
     ];
 
     /**

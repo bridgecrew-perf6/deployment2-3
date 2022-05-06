@@ -43,7 +43,7 @@ class ProyectoController extends Controller
         $pro->nomb_proy = $request->input('p');
         $pro->FK_FB = $request->input('s');
         $pro->save();
-        Alert::success('Felicidades!', 'Proyecto creado Correctamente.');
+        Alert::success('Proceso realizado!', 'Proyecto creado Correctamente.');
         return redirect('proyectos');
   }
 
@@ -64,14 +64,14 @@ class ProyectoController extends Controller
         $pro->nomb_proy = $request->input('p');
         $pro->FK_FB = $request->input('s');
         $pro->save();
-        Alert::success('Felicidades!', 'Proyecto editado Correctamente.');
+        Alert::success('Proceso realizado!', 'Proyecto editado Correctamente.');
         return redirect('proyectos');
     }
 
     public function destroy($id){
         $pro = Proyecto::find($id);
         $pro->delete();
-        Alert::error('Felicidades!', 'Proyecto eliminado Correctamente.');
+        Alert::error('Proceso realizado!', 'Proyecto eliminado Correctamente.');
         return redirect('proyectos');
 
     }

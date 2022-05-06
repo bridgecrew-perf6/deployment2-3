@@ -142,8 +142,11 @@
                 },
                 email: {
                     required: true,
+                    remote:{
+                    url:"validate",
+                    type:"get"
+                },
                     email: true,
-                    remote: '/validate-email'
                 },
                
                 password: {

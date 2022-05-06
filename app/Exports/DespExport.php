@@ -28,14 +28,13 @@ class DespExport implements FromCollection, WithHeadings
        
         return DB::table('Despliegue')
         ->select(
-            'Despliegue.IdDesp',
             'Despliegue.fecha',
+            'Rama.nomb_rama',
+            'Proyecto.nomb_proy',
+            'Layer.layer',
+            'Desarollador.nomb_desa',
+            'Devops.nomb_devo',
            'Ambiente.nomb_amb',
-           'Desarollador.nomb_desa',
-           'Devops.nomb_devo',
-           'Layer.layer',
-           'Proyecto.nomb_proy',
-           'Rama.nomb_rama',
            'Servidor.numb_serv'
         )
         ->join('Ambiente','Despliegue.FK_AMB','=','Ambiente.idAmbiente')
@@ -52,14 +51,13 @@ class DespExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return[
-            'Id_Despliegue',
             'Fecha',
-            'Ambiente',
+            'Rama',
+            'Proyecto',
+            'Capa',
             'Desarollador',
             'Devops',
-            'Capa',
-            'Proyecto',
-            'Rama',
+            'Ambiente',
             'Servidor'
 
         ];

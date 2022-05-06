@@ -24,8 +24,8 @@ class FechStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'di' => "required",
-            'df' => "required",
+            'di' => "required|date",
+            'df' => "required|date",
 
         ];
     }
@@ -34,6 +34,8 @@ class FechStoreRequest extends FormRequest
     {
         return [
             'di.required' => "El campo no puede estar vacío",
+            'di.date' => "Fecha invalida!",
+            'df.date' => "Fecha invalida!",
             'df.required' => "El campo no puede estar vacío",
 
         ];

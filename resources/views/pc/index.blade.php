@@ -18,7 +18,7 @@
                            
                                 
                             <h4>Equipos</h4>
-                            <a href="{{url('pc/create')}}"><button class="btn btn-default">Nuevo Proyecto</button></a>
+                            <a href="{{url('pc/create')}}"><button class="btn btn-default">Nuevo Equipo</button></a>
                             <div class="m-t-25">
                              
 

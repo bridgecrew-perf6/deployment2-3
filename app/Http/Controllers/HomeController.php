@@ -72,5 +72,25 @@ class HomeController extends Controller
     return redirect('login.index')->WithSuccess('No Tienes acceso!');
 
 }
+    public function editartema(Request $request, $id){
+        $user = User::find($id);
+        $user->name;
+        $user->email;
+        $user->type;
+        $user->phone;
+        $user->city;
+        $user->modo = $request->input('header-theme');
+        $user->save();
+        return redirect('home');
+
+
+    }
+    public function darkmode(Request $request, $id){
+        $user = User::find($id);
+        $user->dark = $request->input('side-nav-theme-toogle');
+        $user->save();
+        return redirect('home');
+
+    }
 }
 

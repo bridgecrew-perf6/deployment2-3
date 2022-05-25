@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 
 //DESPLIEGUES
@@ -87,7 +83,7 @@ Route::post('excel', 'App\Http\Controllers\ExcelController@DespExport')->name('e
 
 
 //login
-Route::get('login', 'App\Http\Controllers\Auth\LoginController@mostrarLogin')->name('login.index');
+Route::get('/', 'App\Http\Controllers\Auth\LoginController@mostrarLogin')->name('login.index');
 Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
 Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout.login');
 

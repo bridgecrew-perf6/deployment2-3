@@ -26,7 +26,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-6 d-none d-md-block">
-                            <img class="img-fluid" src="{{asset('assets/images/logo/mchelo.png')}}" alt="">
+                            <img class="img-fluid" src="{{asset('assets/images/logo/mlox.png')}}" alt="">
                         </div>
                         <div class="m-l-auto col-md-5">
                             <div class="card">

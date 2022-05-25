@@ -13,9 +13,9 @@
     <!-- page css -->
 
     <!-- Core css -->
-    <link href="assets/css/app.min.css" rel="stylesheet">
+    <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="http://cdn.syncfusion.com/js/assets/external/jsrender.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.min.js"></script>
@@ -25,9 +25,9 @@
 
 </head>
 <body>
-   
+
     </script>
-    
+
     <div class="app">
         <div class="container-fluid">
             <div class="d-flex full-height p-v-15 flex-column justify-content-between">
@@ -39,7 +39,7 @@
                         <div class="col-md-5">
                             <div class="card">
                                 <div class="card-body">
-                                    
+
                                     <h2 class="m-t-20">Iniciar Sesion</h2>
                                     <p class="m-b-30">Introduzca sus credenciales</p>
                                     @if (session("message"))
@@ -60,9 +60,9 @@
                                             <div class="input-affix">
                                                 <i class="prefix-icon anticon anticon-user"></i>
                                                 <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email')}}">
-                                            </div>        
+                                            </div>
                                             <div class="valid-feedback">
-                                            </div>                                  
+                                            </div>
                                             <br>
 
 
@@ -81,7 +81,7 @@
                                         <div class="form-group">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <span class="font-size-13 text-muted">
-                                                    No tienes una cuenta? 
+                                                    No tienes una cuenta?
                                                     <a class="small" href="{{url('register')}}"> Registrate</a>
                                                 </span>
                                                 <button type="submit"class="btn btn-primary">Iniciar sesion</button>
@@ -91,8 +91,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="offset-md-1 col-md-6 d-none d-md-block">
-                            <img class="img-fluid" src="assets/images/logo/mchelo.png" alt="">
+                        <div class="offset-md-1 col-md-4 d-none d-md-block">
+                            <img class="img-fluid" src="assets/images/logo/mlox.png"  alt="">
                         </div>
                     </div>
                 </div>
@@ -113,9 +113,9 @@
 
 
     <script src="assets/vendors/jquery-validation/jquery.validate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 
 
 
@@ -131,23 +131,23 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script>
-        
+
         $(document).ready(function () {
         $('#form').validate({
-            errorElement: 'div', 
+            errorElement: 'div',
             errorClass: 'is-invalid',
             validClass: 'is-valid',
             rules: {
                 email: {
                     required: true,
                     email: true,
-                },              
+                },
                 password: {
                     required: true,
                 },
             },
             messages: {
-               
+
                 email: {
                     required:"",
                     email: "",
@@ -159,7 +159,7 @@
         });
     });
     </script>
-   
+
 
 </body>
 

@@ -50,7 +50,7 @@ class RegistroController extends Controller
         }
 
         $user->save();
-        return redirect('login')->with('mensaje', 'Usuario registrado correctamente');
+        return redirect('/')->with('mensaje', 'Usuario registrado correctamente');
     }
     public function validateuseremail(Request $request)
    {
@@ -78,7 +78,7 @@ $message = "Your e-mail is verified. You can now login.";
 $message = "Your e-mail is already verified. You can now login.";
 }
 }
-return redirect()->route('login')->with('message', $message);
+return redirect()->route('/')->with('message', $message);
 }
 }
 

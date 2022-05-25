@@ -16,10 +16,12 @@
                                         @endforeach
                                         <span class="text-gray font-size-13">Inventarios</span>
                                     </div>
+                                    <div>
                                     <a href="{{url('inventarios/create')}}"><button class="btn btn-info">Nuevo Usuario</button></a>
-                                    
+                                    </div>
 
-                                </div>                                
+
+          </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-right m-v-10">
@@ -35,6 +37,37 @@
                             </div>
                         </div>
                     </div>
+
+
+                     <div class="col-md-12" ">
+
+
+            <form class="form-row">
+        <div class="row">
+                <div class="col">
+             <input name="buscarpor" class="form-control" type="search" placeholder="Buscar por nombre" aria-label="Search">
+             </div>
+                     <div class="col">
+
+            <input name="buscarporc" class="form-control " type="search" placeholder="Buscar por Cargo" aria-label="Search">
+                         </div>
+                         <div class="col">
+
+                            <input name="buscarpors" class="form-control " type="search" placeholder="Buscar por Serial" aria-label="Search">
+                                         </div>
+
+
+
+
+                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                    </form>
+                    </div>
+
+                                                        </div>
+                                                        <br>
+                                        <br>
+
+
                     <div class="row">
                         <div class="col-lg-11 mx-auto">
                             <!-- Card View -->
@@ -60,12 +93,12 @@
                                             <div class="text-center m-t-20 row" style="
                                                 margin-left: 95px;">
 
-                                               
+
 
                                                 <button class="m-r-5 btn btn-icon btn-hover btn-rounded">
-                                                    <a href="{{url('inventarios/'.$i->idUsuario.'/edit')}}"><i class="anticon anticon-edit"></i></a> 
+                                                    <a href="{{url('inventarios/'.$i->idUsuario.'/edit')}}"><i class="anticon anticon-edit"></i></a>
                                                 </button>
-                                                
+
 
                                                     <form method="post" action="{{route('inventarios.delete', $i->idUsuario)}}">
 
@@ -74,7 +107,6 @@
                                                         <a><button class="m-r-5 btn btn-icon btn-hover btn-rounded show_confirm" id="deleteButton" onclick="
                                                             return confirm('Estas seguro de borrar este usuario?')" data-name="{{$i->nomb_usua}}" type="submit"><i class="anticon anticon-delete"></i></button></a>
                                                         </form>
-                                                        
                                                 </div>
                                             </div>
                                             <div class="text-center m-t-30">
@@ -87,7 +119,7 @@
                                     </div>
                                 </div>
                                 @endforeach
-                                
+
 
                             </div>
                             <div class="d-flex justify-content-center">
@@ -99,6 +131,7 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
+
                                                     <table  id="data-table" class="table" >
 
                                                         <thead>
@@ -143,7 +176,7 @@
                                                                 </form>
                                                             </td>
                                                             <td>
-                                                                    
+
                                                             </td>
                                                                 <td class="text-right">
                                                                     <a class="btn btn-primary btn-tone" href="{{url('inventarios/'.$i->idUsuario)}}">
@@ -153,34 +186,33 @@
                                                                 </td>
 
                                                             </tr>
-                                                   
+
                                                             @endforeach
 
                                                         </tbody>
-                                                      
+
                                                     </table>
 
-                                                     <div class="d-flex">
-                {!! $iv->links() !!}
-            </div>
-                                                   
 
-                                                
-                                                
+
+
+
+
+
                                         </div>
-                                        
+
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                         </div>
-                        
+
 
                     </div>
-                    
+
                 </div>
 
 
-                
+
 @endsection

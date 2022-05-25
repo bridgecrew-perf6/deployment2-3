@@ -32,14 +32,14 @@
             <div class="header">
                 <div class="logo logo-dark">
                     <a href="{{url('home')}}">
-                        <img src="{{asset('assets/images/logo/mchelo.png')}}" class="lo" >
-                        <img class="logo-fold" src="{{asset('assets/images/logo/d1.png')}}" alt="Icono M">
+                        <img src="{{asset('assets/images/logo/mlox.png')}}" class="lo"  >
+                        <img class="logo-fold" src="{{asset('assets/images/logo/dlox2.png')}}" style="width: 55px;"  alt="Icono M">
                     </a>
                 </div>
                 <div class="logo logo-white">
                     <a href="{{url('home')}}">
-                        <img src="{{asset('assets/images/logo/mchelox.png')}}"  class="lo" alt="Logo ProjectUp">
-                        <img class="logo-fold a" src="{{asset('assets/images/logo/d3.png')}}" alt="Icono ProjectUp">
+                        <img src="{{asset('assets/images/logo/image.png')}}"  class="lo" alt="Logo ProjectUp">
+                        <img class="logo-fold a" src="{{asset('assets/images/logo/dlox.png')}}" alt="Icono ProjectUp">
                     </a>
                 </div>
                 <div class="nav-wrap">
@@ -54,19 +54,15 @@
                                 <i class="anticon"></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript:void(0);" data-toggle="modal" data-target="#search-drawer">
-                                <i class="anticon anticon-search"></i>
-                            </a>
-                        </li>
+
                     </ul>
                     <ul class="nav-right">
                         <li class="dropdown dropdown-animated scale-left">
                             <a href="javascript:void(0);" data-toggle="dropdown">
                                 <i class="anticon anticon-bell notification-badge">
                                @if(count(auth()->user()->unreadnotifications))
-                                <span style="font-size:12px">{{count(auth()->user()->unreadnotifications)}}</span>
-                              @endif  
+                                <span style="font-size:12px"></span>
+                              @endif
                                 </i>
                             </a>
                             <div class="dropdown-menu pop-notification">
@@ -87,51 +83,51 @@
                                             @foreach (auth()->user()->unreadnotifications as $notification)
                                         <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
                                             <div class="d-flex">
-                                           
-                                            
+
+
                                                 <div class="avatar avatar-blue avatar-icon">
-                                                  
+
                                                     <i class="anticon anticon-mail"></i>
                                                 </div>
                                                 <div class="m-l-15">
-                                                   
+
                                                     <p class="m-b-0 text-dark">Despliegue {{$notification->data['id']}} Realizado</p>
                                                     <p class="m-b-0"><small>{{$notification->created_at->diffForHumans()}}</small></p>
-                                                
+
                                                 </div>
-                                                 
+
                                             </div>
-                                            
+
                                         </a>
                                         @endforeach
                                         <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom" style="margin-left:85px">
                                         Notificaciones leidas
                                         </a>
-                                       
+
                                        @forelse (auth()->user()->readnotifications as $notification)
                                         <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
-                                         
+
                                             <div class="d-flex">
-                                               
+
                                                <div class="avatar avatar-blue avatar-icon">
-                                                  
+
                                                     <i class="anticon anticon-mail"></i>
                                                 </div>
                                                 <div class="m-l-15">
                                                     <p class="m-b-0 text-dark">Despliegue {{$notification->data['id']}} Realizado</p>
                                                     <p class="m-b-0"><small>{{$notification->created_at->diffForHumans()}}</small></p>
-                                                   
+
                                                 </div>
-                                                
+
                                             </div>
                                             @empty
-                                                   <span>Sin notificaciones leidas</span>  
+                                                   <span>Sin notificaciones leidas</span>
                                              @endforelse
-                                            
+
                                         </a>
-                                       
+
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </li>
@@ -199,7 +195,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>    
+            </div>
             <!-- Header END -->
 
             <!-- Side Nav START -->
@@ -219,7 +215,7 @@
                                 <li>
                                     <a href="{{route('home.index')}}">Home</a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -259,7 +255,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
-                                            
+
                                         <span class="title">Reportes</span>
                                         <span class="arrow">
                                             <i class="arrow-icon"></i>
@@ -295,12 +291,12 @@
                                         <li>
                                             <a href="{{route('cargos.index')}}">Cargos</a>
                                         </li>
-                                       
+
                                     </ul>
                                 </li>
                             </ul>
                         </li>
-                        
+
                 </div>
             </div>
             <!-- Side Nav END -->
@@ -409,9 +405,9 @@
                                         <p class="m-b-0 text-muted font-size-13">Data Analyst</p>
                                     </div>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="m-t-30">
-                                <h5 class="m-b-20">News</h5> 
+                                <h5 class="m-b-20">News</h5>
                                 <div class="d-flex m-b-30">
                                     <div class="avatar avatar-image">
                                         <img src="assets/images/others/img-1.jpg" alt="">
@@ -424,7 +420,7 @@
                                         </p>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -484,9 +480,9 @@
                                 <h5 class="m-b-0">Modo oscuro</h5>
                                 <p>Cambiar a modo oscuro</p>
                                 <div class="switch d-inline">
-                                    <input type="radio" name="side-nav-theme-toogle" id="side-nav-theme-toogle" value="is-side-nav-dark"><i class="fas fa-moon"></i> 
+                                    <input type="radio" name="side-nav-theme-toogle" id="side-nav-theme-toogle" value="is-side-nav-dark"><i class="fas fa-moon"></i>
                                     <br>
-                                    
+
                                     <input type="radio" name="side-nav-theme-toogle" id="side-nav-theme-toogle" value="is"> <i class="fas fa-sun"></i>
                                     <br>
 
@@ -494,7 +490,7 @@
                                 <br>
                                 <button class="btn btn-info btn-tone m-r-5  btn-xs"  type="submit">Escoger modo</button>
 
-                                
+
                             </div>
                             <hr>
                             <div>
@@ -507,18 +503,18 @@
                             </div>
                         </div>
                     </div>
-                </div>            
+                </div>
             </div>
             <!-- Quick View END -->
         </div>
     </div>
 
-    
+
     <!-- Core Vendors JS -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
     <script src="{{asset('assets/js/vendors.min.js')}}"></script>
-    
+
 
     <!-- page js -->
     <script src="{{asset('assets/vendors/quill/quill.min.js')}}"></script>

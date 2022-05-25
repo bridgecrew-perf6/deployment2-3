@@ -16,7 +16,7 @@
             <br>
             
             
-            <form action="{{route('pdf.informe')}}" method="POST">
+            <form action="{{route('pdf.informe')}}" target="_blank" method="POST">
                 @csrf
 
 
@@ -59,11 +59,9 @@
 
                     <!-- Input D -->
 
-
-
                 </div>
                 
-                <input type="submit" style="margin-left: 500px; width: 220px;" class="btn btn-enviar" value="Generar PDF" onlick="searchDate">
+            <input type="submit" target="_blank"  rel="noopener noreferrer" style="margin-left: 350px; width: 220px;" class="btn btn-enviar" value="Generar PDF" onlick="searchDate"></a>
                              
             </form>
 

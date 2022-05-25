@@ -41,7 +41,7 @@ class UStoreRequest extends FormRequest
             'password_confirmation.required' => "El campo no puede estar vacío",
             'password_confirmation.same' => "Contraseña no coincide",
 
-            
+
 
 
 

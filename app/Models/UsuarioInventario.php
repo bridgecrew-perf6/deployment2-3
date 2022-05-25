@@ -15,4 +15,11 @@ class UsuarioInventario extends Model
 
     public function Inventario(){return $this->belongsTo('App\Models\Inventario');}
 
+    public function scopeName($query, $name){
+        if($name)
+        return $query->where('nomb_usua','LIKE',"%$name%");
+    }
+
 }
+
+

@@ -49,13 +49,13 @@ class LoginController extends Controller
         if(Auth::attempt($request->only(['email', 'password']))){
             return redirect('home');
         }else {
-            return redirect('login')->with('mensaje', 'Credenciales invalidas');
+            return redirect('/')->with('mensaje', 'Credenciales invalidas');
         }
     }
 
     public function logout(){
         Auth::logout();
-        return redirect('login')->with("mensaje", "Sesion cerrada correctamente");
+        return redirect('/')->with("mensaje", "Sesion cerrada correctamente");
     }
 
     }

@@ -50,7 +50,7 @@ class PDFController extends Controller
      }
 
     public function informe(FechStoreRequest $request){
-       
+
         $inicio=$request->di;
         $final=$request->df;
 
@@ -82,7 +82,7 @@ class PDFController extends Controller
 
         $pdf = app('Fpdf');
         $pdf->AddPage('l', 'Legal','mm','300','200');
-        $pdf->Image('../public/assets/images/logo/mchelo.png', 20, 15, 50, 12,'PNG');
+        $pdf->Image('../public/assets/images/logo/mlox.png', 20, 15, 50, 18,'PNG');
         $pdf->SetFont('Arial','B',9);
         $pdf->setXY(325, 9);
         $pdf->Cell(45,9,date('d/m/Y'),0);
@@ -108,7 +108,7 @@ class PDFController extends Controller
 
         $pdf->setFont('Arial', 'B', 9);
         $pdf->cell(35, 7, 'Proyecto', 'TBR', 0, 'C');
-        
+
         $pdf->setFont('Arial', 'B', 9);
         $pdf->cell(35, 7, 'Layer', 'TBR', 0, 'C');
 
@@ -153,13 +153,13 @@ class PDFController extends Controller
 
 
 
-           
+
 
 
 
         }
 
-        return response($pdf->OutPut(), 200)
+        return response($pdf->OutPut('S'), 200)
                 ->header('Content-Type', 'application/pdf');
     }
 

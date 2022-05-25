@@ -34,8 +34,8 @@
                                     <div class="m-t-15 lh-2">
                                         <div class="inline-block">
                                             <a href="{{url('crearin/'.$i->idUsuario.'/create')}}" class=""><button class="btn btn-danger btn-tone m-r-5">Agregar Nuevo</button></a>
-                                            <a href="{{url('acta/'.$i->idUsuario)}}" class=""><button class="btn btn-danger btn-tone m-r-5">Generar acta</button></a>
-                                             <a href="{{url('paz/'.$i->idUsuario)}}" class=""><button class="btn btn-danger btn-tone m-r-5">Generar paz y salvo</button></a>
+                                            <a href="{{url('acta/'.$i->idUsuario)}}" class="" target="_blank"><button class="btn btn-danger btn-tone m-r-5">Generar acta</button></a>
+                                             <a href="{{url('paz/'.$i->idUsuario)}}" class="" target="_blank"><button class="btn btn-danger btn-tone m-r-5">Generar paz y salvo</button></a>
 
                                         </div>
                                         <div class="float-right">

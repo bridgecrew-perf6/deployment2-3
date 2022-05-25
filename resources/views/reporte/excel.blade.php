@@ -69,7 +69,7 @@
 
                 </div>
                 
-                <input type="submit" style="margin-left: 500px; width: 220px;" class="btn btn-enviar" value="Generar Excel" onlick="searchDate">
+                <a target="_blank" ><input type="submit" style="margin-left: 350px; width: 220px;" class="btn btn-enviar" value="Generar Excel" onlick="searchDate"></a>
                              
             </form>
 

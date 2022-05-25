@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\DB;
 use App\Models\Inventario;
 use App\Models\UsuarioInventario;
 use App\Models\Maquina;
@@ -33,17 +33,29 @@ class InventarioController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $iv = DB::table('usuario_inventario')
+        $nombre = $request->get('buscarpor');
+        $cargo = $request->get('buscarporc');
+        $serial = $request->get('buscarpors');
+
+        $iv = DB::table('Inventario')
         ->select(
             'usuario_inventario.nomb_usua',
             'usuario_inventario.idUsuario',
             'usuario_inventario.cedula',
-            'cargo.nomb_cargo'
+            'cargo.nomb_cargo',
         )
+        ->join('usuario_inventario','Inventario.FK_U', '=', 'usuario_inventario.idUsuario')
         ->join('cargo','usuario_inventario.FK_CARGO', '=', 'cargo.idCargo')
+        ->where('nomb_usua','like',"%$nombre%")
+        ->where('nomb_cargo','like',"%$cargo%")
+        ->where('serial','like',"%$serial%")
         ->paginate(8);
+
+
+
+
 
         $al = DB::table('usuario_inventario')
         ->select(DB::raw("COUNT(*) as count_row"))
@@ -85,7 +97,7 @@ class InventarioController extends Controller
     public function store(InventarioRequest $request)
     {
 
-      
+
 
         $i = new UsuarioInventario();
         $i->nomb_usua = $request->input('name');
@@ -125,7 +137,7 @@ class InventarioController extends Controller
     public function show($id)
     {
         $in = UsuarioInventario::find($id);
-        
+
         $iv = DB::table('Inventario')->where('idUsuario','=',$id)
         ->select(
             'usuario_inventario.nomb_usua',
@@ -221,7 +233,7 @@ class InventarioController extends Controller
         $u = DB::table('usuario_inventario')->where('idUsuario',"=",$id)
         ->select('idUsuario','nomb_usua')
         ->get();
-        
+
 
         return view('equipo.create')->with('c',$c)->with('u',$u);
     }
@@ -250,7 +262,7 @@ class InventarioController extends Controller
         ->join('usuario_inventario','Inventario.FK_U', '=', 'usuario_inventario.idUsuario')
         ->join('equipo','Inventario.FK_EQUI', '=', 'equipo.idEquipo')
         ->get();
-  
+
         return view('observe.show')->with('ob',$ob);
 
     }
@@ -308,7 +320,7 @@ class InventarioController extends Controller
                     $in->save();
                         Alert::success('Felicidades!', 'Entregado con acta');
             break;
-            
+
             case 2: $in->acta = 1;
                     $in->save();
                     Alert::success('Felicidades!', 'Acta Enviada');
@@ -320,12 +332,12 @@ class InventarioController extends Controller
 
     public function crearmaquina($id){
 
-       
+
 
         $u = DB::table('usuario_inventario')->where('idUsuario',"=",$id)
         ->select('idUsuario','nomb_usua')
         ->get();
-        
+
 
         return view('maquina.create')->with('u',$u);
     }
